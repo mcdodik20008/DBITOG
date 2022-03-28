@@ -6,12 +6,12 @@ using System.Drawing;
 
 namespace BD_ITOG
 {
-    class Abonement2 : DefultForm
+    class Abonement : DefultForm
     {     
         List<string> aboutReader;
         static HeadDataGrid inBaseConstructor = EAbonement.HeadDataGrid;
 
-        public Abonement2(int currentId, List<string> aboutCurrent) : base(inBaseConstructor)
+        public Abonement(int currentId, List<string> aboutCurrent) : base(inBaseConstructor)
         {
             this.currentId = currentId;
             commandMaxId = "SELECT MAX(id_zap) From InSy.dbo.Subscription";

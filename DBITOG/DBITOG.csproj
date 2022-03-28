@@ -63,7 +63,7 @@
     <Compile Include="Entities\ELibrarian.cs" />
     <Compile Include="Entities\EReaders.cs" />
     <Compile Include="Entities\IEitem.cs" />
-    <Compile Include="Form\Abonement2.cs">
+    <Compile Include="Form\Abonement.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\Author.cs">
@@ -81,7 +81,7 @@
     <Compile Include="Form\LibrarianForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\Readers2.cs">
+    <Compile Include="Form\Readers.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HeadDataGrid.cs" />

@@ -6,16 +6,16 @@ using System.Windows.Forms;
 
 namespace BD_ITOG
 {
-    public class Readers2 : DefultForm
+    public class Readers : DefultForm
     {
-        public Readers2() : base(EReaders.HeadDataGrid)
+        public Readers() : base(EReaders.HeadDataGrid)
         {
             for (int i = 0; i < 4; i++)
                 TextAndComboBox.Add(InicialItem.TextBox());
             TextAndComboBox.Add(new ComboBox());
             commandMaxId = "SELECT Max(id_Lk) From InSy.dbo.LibraryCard";
             var button = InicialItem.Button("Подробнее");
-            button.Click += (sender, args) => new Abonement2(currentId, aboutCurrent).ShowDialog();
+            button.Click += (sender, args) => new Abonement(currentId, aboutCurrent).ShowDialog();
             Buttons.Add(button);
             AddControls();
         }

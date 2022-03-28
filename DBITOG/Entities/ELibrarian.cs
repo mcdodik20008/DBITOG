@@ -13,8 +13,9 @@ namespace BD_ITOG
         public static HeadDataGrid HeadDataGrid = new HeadDataGrid(
             new List<string> { "id_lib", "Библиотекарь", "Дата рождения" },
             new List<bool> { false, true, true },
-            new List<string> { "id_Librarian", "fullName", "dateBirth" },
-           "InSy.dbo.Librarian");
+            new List<string> { "id_Librarian", "fullName", "dateBirth" }
+           );
+        public string GetNameTable() => "InSy.dbo.Librarian";
         public ELibrarian(int pK, string fIO, DateTime dateBirth)
         {
             PK = pK;

@@ -9,8 +9,9 @@ namespace BD_ITOG
         public static HeadDataGrid HeadDataGrid = new HeadDataGrid(
             new List<string> { "Номер", "Название" },
             new List<bool> { true, true },
-            new List<string> { "id_napr", "name" },
-            "InSy.dbo.Directions");
+            new List<string> { "id_napr", "name" }
+            );
+        public string GetNameTable() => "InSy.dbo.Directions";
         public EDirections(int pK, string name)
         {
             PK = pK;

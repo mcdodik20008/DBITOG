@@ -53,7 +53,7 @@ namespace BD_ITOG
 
             // посмотрите диаграмму классов
             Librarian.Click += (sender, args) => new LibrarianForm().ShowDialog();
-            Abonement.Click += (sender, args) => new Readers2().ShowDialog();
+            Abonement.Click += (sender, args) => new Readers().ShowDialog();
             BookBtn.Click += (sender, args) => new Book().ShowDialog();
             Author.Click += (sender, args) => new Author().ShowDialog();
             Directions.Click += (sender, args) => new Directions().ShowDialog();

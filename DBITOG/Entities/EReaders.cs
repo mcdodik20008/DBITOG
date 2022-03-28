@@ -16,8 +16,9 @@ namespace BD_ITOG
         public static HeadDataGrid HeadDataGrid = new HeadDataGrid(
             new List<string> { "id_Lk", "ФИО", "Дата рождения", "Телефонный номер", "Домашний адрес", "fkDir", "Направление" },
             new List<bool> { false, true, true, true, true, false, true },
-            new List<string> { "id_Lk", "fullName", "dateBirth", "phoneNumber", "homeAdres", "fk_dir", ""},
-            "InSy.dbo.LibraryCard");
+            new List<string> { "id_Lk", "fullName", "dateBirth", "phoneNumber", "homeAdres", "fk_dir", ""}
+            );
+        public string GetNameTable() => "InSy.dbo.LibraryCard";
 
         public EReaders(int pk, string fIO, DateTime dateB, string phoneNumber, string hAdres, int fkDir, string dir)
         {

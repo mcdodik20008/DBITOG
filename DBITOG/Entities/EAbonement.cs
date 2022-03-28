@@ -21,9 +21,10 @@ namespace BD_ITOG
         public static HeadDataGrid HeadDataGrid = new HeadDataGrid(
             new List<string> { "id_zap", "fk_libcard", "fk_b", "Книга", "fk_author", "Автор", "fk_v", "Выдал", "Дата выдачи", "fk_s", "Принял", "Дата сдачи" },
             new List<bool> { false, false, false, true, false, true, false, true, true, false, true, true },
-            new List<string> { "id_zap", "fk_libCard", "fk_book", "", "", "", "fk_whoV", "", "dateV", "fk_whoS", "", "dateS"},
-            "InSy.dbo.Subscription");
+            new List<string> { "id_zap", "fk_libCard", "fk_book", "", "", "", "fk_whoV", "", "dateV", "fk_whoS", "", "dateS"}
+            );
 
+        public string GetNameTable() => "InSy.dbo.Subscription";
 
         public EAbonement(int pk, int fkLk, int fkBook, string nameBook, int fkAuthor, string nameAuthor, 
             int fkV, string nameV, DateTime dateV, int? fkS, string nameS, DateTime? dateS)

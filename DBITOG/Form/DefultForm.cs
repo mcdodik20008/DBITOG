@@ -26,27 +26,16 @@ namespace BD_ITOG
         internal abstract IEitem NewIEitem(); //нужно для кнопки change, собираем данные с техт и комбо бохов, создаем новый объект с которым удобнее работать
 
         internal void FillingDatagrid<T>(List<T> list)
+            where T : IEitem
         {
             var i = 0;
             foreach (var item in list)
             {
                 var n = 0;
                 dataGrid.Rows.Add();
-                //из-за этого название таблицы закинул в хедДатаГрид
-                foreach (var property in item.GetType().GetFields())
-                {
-
-                    var x = property.GetValue(item);
-                    if (x is HeadDataGrid) continue;
-                    if (x is DateTime dT)
-                        dataGrid.Rows[i].Cells[n].Value = dT.ToShortDateString();
-                    else
-                    {
-                        dataGrid.Rows[i].Cells[n].Value = x != null ? x.ToString() : null;
-                    }
-                    n++;
-                }
-                i++;
+                foreach (var valueProperty in item.GetValueForDataGrid())              
+                    dataGrid.Rows[i].Cells[n++].Value = valueProperty != null ? valueProperty : null;
+                i += 1;
             }
         }
 
@@ -60,7 +49,7 @@ namespace BD_ITOG
             StartPosition = FormStartPosition.CenterScreen;
 
             //Стандартные кнопки
-            InicializeButtons();
+            InicializeDefoultButtons();
 
             //Делаю датагрид
             this.headDataGrid = headDataGrid;
@@ -76,7 +65,7 @@ namespace BD_ITOG
         }
 
         //для реализации патерна команда, решил пользоваться стеком. Удобно отменять. Отменить отмену - нет.
-        private void InicializeButtons()
+        private void InicializeDefoultButtons()
         {
             var name = new[] { "Удалить", "Отменть", "Очистить", "Новый", "Изменить", "Сохранить" };
             foreach (var item in name)
@@ -88,7 +77,7 @@ namespace BD_ITOG
             Buttons[0].Click += (sender, args) =>
             {
                 var n = dataGrid.CurrentRow.Index;
-                var x = new Remove(dataGrid, n, headDataGrid);
+                var x = new Remove(dataGrid, n, NewIEitem());
                 Commands.Push(x);
                 x.Command(dataGrid);
                 Buttons[1].Enabled = true;

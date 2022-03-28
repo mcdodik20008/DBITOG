@@ -8,13 +8,12 @@ namespace BD_ITOG
         public List<string> HeaderTest;
         public List<bool> IsVisible;
         public List<string> NameInSql;
-        public string NameTable;
-        public HeadDataGrid(List<string> headerTest, List<bool> isVisible, List<string> nameInSql, string nameTable)
+
+        public HeadDataGrid(List<string> headerTest, List<bool> isVisible, List<string> nameInSql)
         {
             HeaderTest = headerTest;
             IsVisible = isVisible;
             NameInSql = nameInSql;
-            NameTable = nameTable;
         }
 
         public override string ToString()

@@ -7,8 +7,8 @@ namespace BD_ITOG
     {
         private int position;
         private List<string> values;
-        private HeadDataGrid head;
-        public Remove(DataGridView value, int pos, HeadDataGrid head)
+        private IEitem item;
+        public Remove(DataGridView value, int pos, IEitem item)
         {
             values = new List<string>();
             foreach (DataGridViewCell cell in value.Rows[pos].Cells)
@@ -16,7 +16,7 @@ namespace BD_ITOG
                 values.Add(cell.Value.ToString());
             }
             position = pos;
-            this.head = head;
+            this.item = item;
         }
 
         public void Command(DataGridView dataGrid)
@@ -31,7 +31,7 @@ namespace BD_ITOG
 
         public void SqveInSql()
         {
-            string command = $"DELETE FROM {head.NameTable} WHERE {head.NameInSql[0]} = {values[0]}";
+            string command = $"DELETE FROM {item.GetNameTable()} WHERE {item.GetHead().NameInSql[0]} = {values[0]}";
             SQL.InteractingSql(command);
         }
     }

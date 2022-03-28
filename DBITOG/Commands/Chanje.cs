@@ -10,6 +10,7 @@ namespace BD_ITOG
         internal List<string> oldValues;
         private HeadDataGrid head;
         private IEitem newValues;
+        private string nameTable;
         public Chanje(DataGridView value, int pos, IEitem item)
         {
             oldValues = new List<string>();
@@ -23,6 +24,7 @@ namespace BD_ITOG
             position = pos;
             head = item.GetHead();
             newValues = item;
+            nameTable = item.GetNameTable();
         }
 
         public void Command(DataGridView x)
@@ -43,28 +45,23 @@ namespace BD_ITOG
         }
         public void SqveInSql()
         {
-            var index = SQL.maxIndex($"SELECT MAX({head.NameInSql[0]}) FROM {head.NameTable}") - 1;
-            string command = null;
+            var index = SQL.maxIndex($"SELECT MAX({head.NameInSql[0]}) FROM {nameTable}") - 1;
+            string command;
             if (position >= index)
-            { command = $"INSERT INTO {head.NameTable}({head}) " +
+            { command = $"INSERT INTO {nameTable}({head}) " +
                     $"VALUES ({newValues.GetValueForSql()})";
                 SQL.InteractingSql(command);
             } 
             else
             {
-                GetCommandForSave();
-            }
-        }
-        void GetCommandForSave()
-        {
-            //$"UPDATE head.NameTable SET value = 'Ваше значение' WHERE config_id = '81'"
-            var strBild = new StringBuilder();
-            var x = newValues.GetListValForSql();
-            for (int i = 1; i < head.NameInSql.FindAll(t => t != "").Count; i++)
-            {
-                strBild.Append($"UPDATE {head.NameTable} SET {head.NameInSql[i]} = {x[i-1]} WHERE {head.NameInSql[0]} = {newValues.GetValueForDataGrid()[0]}");
-                SQL.InteractingSql(strBild.ToString());
-                strBild.Clear();
+                var strBild = new StringBuilder();
+                var x = newValues.GetListValForSql();
+                for (int i = 1; i < head.NameInSql.FindAll(t => t != "").Count; i++)
+                {
+                    strBild.Append($"UPDATE {nameTable} SET {head.NameInSql[i]} = {x[i - 1]} WHERE {head.NameInSql[0]} = {newValues.GetValueForDataGrid()[0]}");
+                    SQL.InteractingSql(strBild.ToString());
+                    strBild.Clear();
+                }
             }
         }
     }
