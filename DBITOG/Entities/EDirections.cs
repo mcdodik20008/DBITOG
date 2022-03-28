@@ -3,39 +3,30 @@
 namespace BD_ITOG
 {
     public class EDirections : IEitem
-    {
-        public int PK;
-        public string Name;
+    {        
         public static HeadDataGrid HeadDataGrid = new HeadDataGrid(
             new List<string> { "Номер", "Название" },
-            new List<bool> { true, true },
+            new List<bool> { false, true },
             new List<string> { "id_napr", "name" }
             );
-        public string GetNameTable() => "InSy.dbo.Directions";
+
+        public int PK;
+        public string Name;
+
         public EDirections(int pK, string name)
         {
             PK = pK;
-            Name = name; 
+            Name = name;
         }
 
-        public List<string> GetValueForDataGrid()
-        {
-            return new List<string>() { PK.ToString(), Name };
-        }
+        public string GetNameTable() => "InSy.dbo.Directions";
 
-        public HeadDataGrid GetHead()
-        {
-            return HeadDataGrid;
-        }
+        public List<string> GetListValForDataGrid() => new List<string>() { PK.ToString(), Name };
 
-        public string GetValueForSql()
-        {
-            return $"'{Name}'";
-        }
+        public HeadDataGrid GetHeadDataGrid() => HeadDataGrid;
 
-        public List<string> GetListValForSql()
-        {
-            return new List<string>() { $"'{Name}'" };
-        }
+        public string GetValueForSql() => $"'{Name}'";
+
+        public List<string> GetListValForSql() => new List<string>() { $"'{Name}'" };
     }
 }

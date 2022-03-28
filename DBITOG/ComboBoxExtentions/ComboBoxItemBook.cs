@@ -17,9 +17,6 @@
             NameAut = nameAut;
         }
 
-        public string[] GetValue()
-        {
-            return new[] { FkLk.ToString(), Pk.ToString(), Name, FkAut.ToString() };
-        }
+        public string[] GetValue() => new[] { FkLk.ToString(), Pk.ToString(), Name, FkAut.ToString() };
     }
 }

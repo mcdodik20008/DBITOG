@@ -20,7 +20,6 @@ namespace BD_ITOG
             AddControls();
         }
 
-
         internal override void Form_Load(object sender, EventArgs e)
         {
             dataGrid.Location = new Point(10, 10);

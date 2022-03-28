@@ -24,7 +24,7 @@ namespace BD_ITOG
             new List<string> { "id_zap", "fk_libCard", "fk_book", "", "", "", "fk_whoV", "", "dateV", "fk_whoS", "", "dateS"}
             );
 
-        public string GetNameTable() => "InSy.dbo.Subscription";
+        
 
         public EAbonement(int pk, int fkLk, int fkBook, string nameBook, int fkAuthor, string nameAuthor, 
             int fkV, string nameV, DateTime dateV, int? fkS, string nameS, DateTime? dateS)
@@ -42,24 +42,22 @@ namespace BD_ITOG
             NameS = nameS;
             DateS = dateS;
         }
+        public string GetNameTable() => "InSy.dbo.Subscription";
 
-        public List<string> GetValueForDataGrid()
-        {
-            return new List<string>() { Pk.ToString(), FkLk.ToString(), FkBook.ToString(), NameBook,
+        public List<string> GetListValForDataGrid() =>
+            new List<string>() { Pk.ToString(), FkLk.ToString(), FkBook.ToString(), NameBook,
                 FkAuthor.ToString(), NameAuthor, FkV.ToString(), NameV, DateV.ToShortDateString(), 
                 FkS != null ? FkS.ToString() : null, 
                 NameS, 
                 DateS != null ? DateS.ToString().Substring(0, 12) : null };
-        }
 
-        public HeadDataGrid GetHead() { return HeadDataGrid; }
+        public HeadDataGrid GetHeadDataGrid() => HeadDataGrid; 
 
-        public string GetValueForSql() { return $"{FkLk}, {FkBook}, {FkV}, {DateV}, {FkS}, {DateS}"; }
+        public string GetValueForSql() => $"{FkLk}, {FkBook}, {FkV}, {DateV}, {FkS}, {DateS}"; 
 
-        public List<string> GetListValForSql()
-        {
-            return new List<string>() { $"{FkLk}", $"{FkBook}", $"{FkV}", $"'{DateV}'", $"'{(FkS != null ? FkS.ToString() : null)}'", 
+        public List<string> GetListValForSql() =>
+            new List<string>() { $"{FkLk}", $"{FkBook}", $"{FkV}", $"'{DateV}'", $"'{(FkS != null ? FkS.ToString() : null)}'", 
                 $"'{(DateS != null ? DateS.ToString().Substring(0, 12) : null)}'"};
-        }
+        
     }
 }

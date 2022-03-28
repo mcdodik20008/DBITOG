@@ -26,24 +26,14 @@ namespace BD_ITOG
             NameAuthor = nameAuthor;
         }
 
-        public List<string> GetValueForDataGrid()
-        {
-            return new List<string>() { Pk.ToString(), NameBook, DateRelise.ToShortDateString(), FkAuthor.ToString(), NameAuthor };
-        }
+        public List<string> GetListValForDataGrid() =>
+            new List<string>() { Pk.ToString(), NameBook, DateRelise.ToShortDateString(), FkAuthor.ToString(), NameAuthor };
 
-        public HeadDataGrid GetHead()
-        {
-            return HeadDataGrid;
-        }
+        public HeadDataGrid GetHeadDataGrid() => HeadDataGrid;
 
-        public string GetValueForSql()
-        {
-            return $"'{NameBook}', '{DateRelise.ToShortDateString()}', {FkAuthor}";
-        }
+        public string GetValueForSql() => $"'{NameBook}', '{DateRelise.ToShortDateString()}', {FkAuthor}";
 
-        public List<string> GetListValForSql()
-        {
-            return new List<string>() { $"'{NameBook}'", $"'{DateRelise.ToShortDateString()}'", $"{FkAuthor}" };
-        }
+        public List<string> GetListValForSql() => new List<string>() { $"'{NameBook}'", $"'{DateRelise.ToShortDateString()}'", $"{FkAuthor}" };
+        
     }
 }

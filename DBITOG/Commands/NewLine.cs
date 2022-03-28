@@ -14,10 +14,9 @@ namespace BD_ITOG
             index = x.Rows.Count - 1;
         }
 
-        public void UnCommand(DataGridView x)
-        {
+        public void UnCommand(DataGridView x) =>
             x.Rows.RemoveAt(index);
-        }
+        
 
         public void SqveInSql() { }
     }

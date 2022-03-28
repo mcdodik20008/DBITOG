@@ -4,16 +4,16 @@ using System.Collections.Generic;
 namespace BD_ITOG
 {
     public class EAuthor : IEitem
-    {
-        public int PK;
-        public string FIO;
-        public DateTime DateBirth;
+    {        
         public static HeadDataGrid HeadDataGrid = new HeadDataGrid(
             new List<string> { "id_Author", "ФИО", "Дата рождения" },
             new List<bool> { false, true, true },
             new List<string> { "id_Author", "fullNameAuthor", "dateBirth" }
             );
-        public string GetNameTable() => "InSy.dbo.Author";
+
+        public int PK;
+        public string FIO;
+        public DateTime DateBirth;
 
         public EAuthor(int pK, string fIO, DateTime dateBirth)
         {
@@ -22,24 +22,14 @@ namespace BD_ITOG
             DateBirth = dateBirth;
         }
 
-        public List<string> GetValueForDataGrid()
-        {
-            return new List<string>() { PK.ToString(), FIO, DateBirth.ToShortDateString() };
-        }
+        public string GetNameTable() => "InSy.dbo.Author";
 
-        public HeadDataGrid GetHead()
-        {
-            return HeadDataGrid;
-        }
+        public List<string> GetListValForDataGrid() => new List<string>() { PK.ToString(), FIO, DateBirth.ToShortDateString() };
 
-        public string GetValueForSql()
-        {
-            return $"'{FIO}', '{DateBirth.ToShortDateString()}'";
-        }
+        public HeadDataGrid GetHeadDataGrid() => HeadDataGrid;
 
-        public List<string> GetListValForSql()
-        {
-            return new List<string>() { $"'{FIO}'", $"'{DateBirth.ToShortDateString()}'" };
-        }
+        public string GetValueForSql() => $"'{FIO}', '{DateBirth.ToShortDateString()}'";
+
+        public List<string> GetListValForSql() => new List<string>() { $"'{FIO}'", $"'{DateBirth.ToShortDateString()}'" };
     }
 }

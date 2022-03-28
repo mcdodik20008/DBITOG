@@ -11,9 +11,7 @@ namespace BD_ITOG
         public Directions() : base(inBaseConstructor)
         {
             TextAndComboBox.Add(InicialItem.TextBox());
-            TextAndComboBox.Add(InicialItem.TextBox());
-            (TextAndComboBox[0] as TextBox).ReadOnly = true;
-            commandMaxId = "SELECT MAx(id_napr) From InSy.dbo.Directions";
+            commandMaxId = "SELECT MAx(id_napr) + 1 From InSy.dbo.Directions";
             AddControls();
         }
 

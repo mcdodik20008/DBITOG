@@ -4,11 +4,11 @@ namespace BD_ITOG
 {
     //якобы сущности Базы данных с "Удобными" методами для получения данных
     public interface IEitem
-    {
-        HeadDataGrid GetHead();
-        List<string> GetValueForDataGrid();
+    { 
+        string GetNameTable();
+        HeadDataGrid GetHeadDataGrid();
+        List<string> GetListValForDataGrid();
         string GetValueForSql();
         List<string> GetListValForSql();
-        string GetNameTable();
     }
 }

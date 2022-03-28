@@ -11,9 +11,6 @@
             Name = name;
         }
 
-        public string[] GetValue()
-        {
-            return new[] { Pk.ToString(), Name };
-        }
+        public string[] GetValue() => new[] { Pk.ToString(), Name };
     }
 }

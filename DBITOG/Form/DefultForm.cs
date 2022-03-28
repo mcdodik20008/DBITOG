@@ -33,7 +33,7 @@ namespace BD_ITOG
             {
                 var n = 0;
                 dataGrid.Rows.Add();
-                foreach (var valueProperty in item.GetValueForDataGrid())              
+                foreach (var valueProperty in item.GetListValForDataGrid())              
                     dataGrid.Rows[i].Cells[n++].Value = valueProperty != null ? valueProperty : null;
                 i += 1;
             }
@@ -108,7 +108,7 @@ namespace BD_ITOG
                 x.Command(dataGrid);
                 Commands.Push(x);
                 Buttons[1].Enabled = true;
-                // чищу 
+                // чищу TextAndComboBox
                 foreach (var item in TextAndComboBox)
                 {
                     if (item is TextBox tB)
@@ -134,9 +134,7 @@ namespace BD_ITOG
             Buttons[5].Click += (sender, args) =>
             {
                 foreach (var item in Commands)
-                {
                     item.SqveInSql();
-                }
                 Commands.Clear();
                 Buttons[1].Enabled = false;
             };
@@ -158,21 +156,18 @@ namespace BD_ITOG
                     if (dataGrid.Rows[x].Cells[i].Value != null)
                         value = dataGrid.Rows[x].Cells[i].Value.ToString();
                     aboutCurrent.Add(value);
-                    if (headDataGrid.IsVisible[i] && TextAndComboBox[j] is TextBox tb)
-                    {
-                        tb.Text = value;
-                        j++;
-                        continue;
-                    }
 
+                    if (headDataGrid.IsVisible[i] && TextAndComboBox[j] is TextBox tb)
+                        tb.Text = value;
                     if (headDataGrid.IsVisible[i] && TextAndComboBox[j] is ComboBox cb)
-                    {
                         cb.Text = value;
+                    if (headDataGrid.IsVisible[i])
                         j++;
-                        continue;
-                    }
                 }
-                currentId = int.Parse(dataGrid.Rows[x].Cells[0].Value.ToString());
+                if (int.TryParse(dataGrid.Rows[x].Cells[0].Value.ToString(), out int intt))
+                    currentId = intt;
+                else
+                    currentId = 1;
             }
         }
 

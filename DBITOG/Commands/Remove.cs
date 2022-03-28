@@ -12,27 +12,19 @@ namespace BD_ITOG
         {
             values = new List<string>();
             foreach (DataGridViewCell cell in value.Rows[pos].Cells)
-            {
-                values.Add(cell.Value.ToString());
-            }
+                values.Add(cell.Value != null ? cell.Value.ToString() : null);          
             position = pos;
             this.item = item;
         }
 
-        public void Command(DataGridView dataGrid)
-        {
+        public void Command(DataGridView dataGrid) =>
             dataGrid.Rows.RemoveAt(position);
-        }
 
-        public void UnCommand(DataGridView dataGrid)
-        {
+        public void UnCommand(DataGridView dataGrid) =>
             dataGrid.Rows.Insert(position, values.ToArray());
-        }
+        
 
-        public void SqveInSql()
-        {
-            string command = $"DELETE FROM {item.GetNameTable()} WHERE {item.GetHead().NameInSql[0]} = {values[0]}";
-            SQL.InteractingSql(command);
-        }
+        public void SqveInSql() => 
+            SQL.InteractingSql($"DELETE FROM {item.GetNameTable()} WHERE {item.GetHeadDataGrid().NameInSql[0]} = {values[0]}");
     }
 }

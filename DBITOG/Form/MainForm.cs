@@ -7,10 +7,10 @@ namespace BD_ITOG
     {
         public MainForm()
         {
-            this.Width = 400;
-            this.Height = 300;
-            this.MinimumSize = new Size(350, 250);
-            this.StartPosition = FormStartPosition.CenterScreen;
+            Width = 400;
+            Height = 300;
+            MinimumSize = new Size(350, 250);
+            StartPosition = FormStartPosition.CenterScreen;
 
             var Librarian = InicialItem.Button("Библиотекари", DockStyle.Fill);
             var BookBtn = InicialItem.Button("Книги", DockStyle.Fill);
@@ -25,16 +25,11 @@ namespace BD_ITOG
             var table = new TableLayoutPanel();
             table.RowStyles.Clear();
 
-            int Rows = 3;
-            for (var i = 0; i < Rows; i++)
-            {
-                table.RowStyles.Add(new RowStyle(SizeType.Percent, 100 / Rows));
-            }
-            var Cols = 3;
-            for (var i = 0; i < Cols; i++)
-            {
-                table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / Cols));
-            }
+            int Rolumn = 3;
+            for (var i = 0; i < Rolumn; i++)
+                table.RowStyles.Add(new RowStyle(SizeType.Percent, 100 / Rolumn));
+            for (var i = 0; i < Rolumn; i++)
+                table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / Rolumn));
 
             table.Controls.Add(Librarian, 0, 0);
             table.Controls.Add(BookBtn, 0, 1);

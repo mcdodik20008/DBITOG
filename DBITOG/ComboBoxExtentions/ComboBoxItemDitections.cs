@@ -10,9 +10,6 @@
             Name = name;
         }
 
-        public string[] GetValue()
-        {
-            return new[] { Pk.ToString() };
-        }
+        public string[] GetValue() => new[] { Pk.ToString() };
     }
 }
