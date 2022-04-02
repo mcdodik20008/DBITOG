@@ -37,5 +37,18 @@ namespace BD_ITOG
             var outt = GetValuesFromTextAndComboBox();
             return new EAuthor(int.Parse(outt[0]), outt[1], DateTime.Parse(outt[2]));
         }
+
+        internal override bool IsInputDontHaveErrors(List<Control> list)
+        {
+            List<Tuple<bool, string>> tupl = new List<Tuple<bool, string>>();
+
+            if (!DateTime.TryParse(list[1].Text, out DateTime dT))
+                tupl.Add(Tuple.Create(false, "Не правильно ввели дату рождения"));
+
+            foreach (var t in tupl)
+                MessageBox.Show(t.Item2, "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            return tupl.Count == 0;
+        }
     }
 }

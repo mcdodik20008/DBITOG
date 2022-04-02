@@ -10,5 +10,6 @@ namespace BD_ITOG
         List<string> GetListValForDataGrid();
         string GetValueForSql();
         List<string> GetListValForSql();
+        bool IsGood();
     }
 }

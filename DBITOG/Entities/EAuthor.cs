@@ -14,6 +14,9 @@ namespace BD_ITOG
         public int PK;
         public string FIO;
         public DateTime DateBirth;
+        public bool isGood = true;
+
+        public EAuthor() => isGood = false;
 
         public EAuthor(int pK, string fIO, DateTime dateBirth)
         {
@@ -31,5 +34,7 @@ namespace BD_ITOG
         public string GetValueForSql() => $"'{FIO}', '{DateBirth.ToShortDateString()}'";
 
         public List<string> GetListValForSql() => new List<string>() { $"'{FIO}'", $"'{DateBirth.ToShortDateString()}'" };
+
+        public bool IsGood() => isGood;
     }
 }

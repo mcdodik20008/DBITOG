@@ -41,9 +41,9 @@ namespace BD_ITOG
         }
         public void SqveInSql()
         {
-            var index = SQL.maxIndex($"SELECT MAX({head.NameInSql[0]}) FROM {nameTable}") - 1;
+            var index = SQL.maxIndex($"SELECT MAX({head.NameInSql[0]}) FROM {nameTable}");
             string command;
-            if (position >= index)
+            if (int.Parse(newValues.GetListValForDataGrid()[0]) > index)
             {
                 command = $"INSERT INTO {nameTable}({head}) " +
                       $"VALUES ({newValues.GetValueForSql()})";
@@ -51,13 +51,12 @@ namespace BD_ITOG
             }
             else
             {
-                var strBild = new StringBuilder();
                 var x = newValues.GetListValForSql();
-                for (int i = 1; i < head.NameInSql.FindAll(t => t != "").Count; i++)
+                var n = 0;
+                for (int i = 1; i < head.NameInSql.Count; i++)
                 {
-                    strBild.Append($"UPDATE {nameTable} SET {head.NameInSql[i]} = {x[i - 1]} WHERE {head.NameInSql[0]} = {newValues.GetListValForDataGrid()[0]}");
-                    SQL.InteractingSql(strBild.ToString());
-                    strBild.Clear();
+                    if (head.NameInSql[i] != "")
+                        SQL.InteractingSql($"UPDATE {nameTable} SET {head.NameInSql[i]} = {x[n++]} WHERE {head.NameInSql[0]} = {newValues.GetListValForDataGrid()[0]}");
                 }
             }
         }

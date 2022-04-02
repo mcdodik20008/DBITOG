@@ -12,6 +12,9 @@ namespace BD_ITOG
 
         public int PK;
         public string Name;
+        public bool isGood = true;
+
+        public EDirections() => isGood = false;
 
         public EDirections(int pK, string name)
         {
@@ -28,5 +31,7 @@ namespace BD_ITOG
         public string GetValueForSql() => $"'{Name}'";
 
         public List<string> GetListValForSql() => new List<string>() { $"'{Name}'" };
+
+        public bool IsGood() => isGood;
     }
 }

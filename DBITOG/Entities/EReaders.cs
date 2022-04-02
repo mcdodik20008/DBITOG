@@ -7,9 +7,9 @@ namespace BD_ITOG
     public class EReaders : IEitem
     {
         public static HeadDataGrid HeadDataGrid = new HeadDataGrid(
-            new List<string> { "id_Lk", "ФИО", "Дата рождения", "Телефонный номер", "Домашний адрес", "fkDir", "Направление" },
-            new List<bool> { false, true, true, true, true, false, true },
-            new List<string> { "id_Lk", "fullName", "dateBirth", "phoneNumber", "homeAdres", "fk_dir", "" });
+            new List<string> { "id_Lk", "ФИО", "Дата рождения", "Телефонный номер", "Домашний адрес", "fkDir", "Направление", "Выдали всего", "Долг" },
+            new List<bool> { false, true, true, true, true, false, true, true, true},
+            new List<string> { "id_Lk", "fullName", "dateBirth", "phoneNumber", "homeAdres", "fk_dir", "", "", ""});
         
 
         public int Pk;
@@ -19,22 +19,29 @@ namespace BD_ITOG
         public string HomeAdres;
         public int FkDir;
         public string Dir;
+        public int TookEverything;
+        public int Debt;
+        public bool isGood = true;
 
-        public EReaders(int pk, string fIO, DateTime dateB, string phoneNumber, string hAdres, int fkDir, string dir)
+        public EReaders() => isGood = false;
+      
+        public EReaders(int pk, string fIO, DateTime dateB, string phoneNumber, string homeAdres, int fkDir, string dir, int tookEverything, int debt)
         {
             Pk = pk;
             FIO = fIO;
             DateB = dateB;
             PhoneNumber = phoneNumber;
-            HomeAdres = hAdres;
+            HomeAdres = homeAdres;
             FkDir = fkDir;
             Dir = dir;
+            TookEverything = tookEverything;
+            Debt = debt;
         }
 
         public string GetNameTable() => "InSy.dbo.LibraryCard";
 
         public List<string> GetListValForDataGrid() => 
-            new List<string>() { Pk.ToString(), FIO, DateB.ToShortDateString(), PhoneNumber, HomeAdres, FkDir.ToString(), Dir }; 
+            new List<string>() { Pk.ToString(), FIO, DateB.ToShortDateString(), PhoneNumber, HomeAdres, FkDir.ToString(), Dir, TookEverything.ToString(), Debt.ToString() }; 
 
         public HeadDataGrid GetHeadDataGrid() => HeadDataGrid;
 
@@ -43,5 +50,7 @@ namespace BD_ITOG
 
         public List<string> GetListValForSql() =>
             new List<string>() {$"'{FIO}'", $"'{DateB.ToShortDateString()}'", $"'{PhoneNumber}'", $"'{HomeAdres}'", $"{FkDir}"};
+
+        public bool IsGood() => isGood;
     }
 }

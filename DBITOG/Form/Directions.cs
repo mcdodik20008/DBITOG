@@ -31,5 +31,7 @@ namespace BD_ITOG
             var outt = GetValuesFromTextAndComboBox();
             return new EDirections(int.Parse(outt[0]), outt[1]);
         }
+
+        internal override bool IsInputDontHaveErrors(List<Control> list) => true;
     }
 }

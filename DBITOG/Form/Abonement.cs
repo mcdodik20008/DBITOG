@@ -81,7 +81,7 @@ namespace BD_ITOG
                 DateTime? dateS = null;
                 string nameS = null;
 
-                if (tS.Count > i && tS[i][0] != null)
+                if (tS.Count > i && tS[i][0] != null && pTable[i][9] != "")
                 {
                     fkS = int.Parse(tS[i][0]);
                     dateS = DateTime.Parse(pTable[i][9]);
@@ -219,7 +219,15 @@ namespace BD_ITOG
         internal override IEitem NewIEitem()
         {
             var outt = GetValuesFromTextAndComboBox();
-            return new EBook(int.Parse(outt[0]), outt[1], DateTime.Parse(outt[2]), int.Parse(outt[3]), outt[4]);
+            int? fk = null;
+            if (outt[9] != null && outt[9] != "") fk = int.Parse(outt[9]);
+
+            DateTime? dT = null;
+            if (outt[9] != null && outt[9] != "") dT = DateTime.Parse(outt[11]);
+            return new EAbonement(int.Parse(outt[0]), int.Parse(outt[1]), int.Parse(outt[2]), outt[3], 
+                int.Parse(outt[4]), outt[5], int.Parse(outt[6]), outt[7], DateTime.Parse(outt[8]), fk, outt[10], dT);
         }
+
+        internal override bool IsInputDontHaveErrors(List<Control> list) => true;
     }
 }

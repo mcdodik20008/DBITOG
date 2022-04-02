@@ -10,6 +10,9 @@ namespace BD_ITOG
         public DateTime DateRelise;
         public int FkAuthor;
         public string NameAuthor;
+        public bool isGood = true;
+
+        public EBook() => isGood = false;
 
         public static HeadDataGrid HeadDataGrid = new HeadDataGrid(
             new List<string> { "id_Book", "Название", "Год печати", "fk_author", "Автор" },
@@ -34,6 +37,7 @@ namespace BD_ITOG
         public string GetValueForSql() => $"'{NameBook}', '{DateRelise.ToShortDateString()}', {FkAuthor}";
 
         public List<string> GetListValForSql() => new List<string>() { $"'{NameBook}'", $"'{DateRelise.ToShortDateString()}'", $"{FkAuthor}" };
-        
+
+        public bool IsGood() => isGood;
     }
 }

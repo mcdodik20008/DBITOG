@@ -24,6 +24,7 @@ namespace BD_ITOG
         internal abstract void FillingComboBox(List<List<IComboBoxItem>> xx); // заполняю для каждой отдельно
         internal abstract void Form_Load(object sender, EventArgs e);
         internal abstract IEitem NewIEitem(); //нужно для кнопки change, собираем данные с техт и комбо бохов, создаем новый объект с которым удобнее работать
+        internal abstract bool IsInputDontHaveErrors(List<Control> TextAndComboBox);
 
         internal void FillingDatagrid<T>(List<T> list)
             where T : IEitem
@@ -80,7 +81,7 @@ namespace BD_ITOG
                 var x = new Remove(dataGrid, n, NewIEitem());
                 Commands.Push(x);
                 x.Command(dataGrid);
-                Buttons[1].Enabled = true;
+                Buttons[1].Enabled = Buttons[5].Enabled = true;
             };
 
             //отменить
@@ -88,7 +89,7 @@ namespace BD_ITOG
             {
                 Commands.Pop().UnCommand(dataGrid);
                 if (Commands.Count() == 0)
-                    Buttons[1].Enabled = false;
+                    Buttons[1].Enabled = Buttons[5].Enabled = false;
             };
 
             //очистить
@@ -103,7 +104,9 @@ namespace BD_ITOG
             //новый
             Buttons[3].Click += (sender, args) =>
             {
-                var n = dataGrid.CurrentRow.Index;
+                var n = 0;
+                if (dataGrid.CurrentRow != null)
+                    n = dataGrid.CurrentRow.Index;
                 var x = new NewLine();
                 x.Command(dataGrid);
                 Commands.Push(x);
@@ -124,10 +127,14 @@ namespace BD_ITOG
             //изменить
             Buttons[4].Click += (sender, args) =>
             {
-                var x = new Chanje(dataGrid, dataGrid.CurrentRow.Index, NewIEitem());
-                x.Command(dataGrid);
-                Commands.Push(x);
-                Buttons[1].Enabled = true;
+                var t = NewIEitem();
+                if (t.IsGood()) 
+                {
+                    var x = new Chanje(dataGrid, dataGrid.CurrentRow.Index, t);
+                    x.Command(dataGrid);
+                    Commands.Push(x);
+                    Buttons[1].Enabled = Buttons[5].Enabled = true;
+                }
             };
 
             //сохранить
@@ -136,7 +143,7 @@ namespace BD_ITOG
                 foreach (var item in Commands)
                     item.SqveInSql();
                 Commands.Clear();
-                Buttons[1].Enabled = false;
+                Buttons[1].Enabled = Buttons[5].Enabled = false;
             };
         }
 
@@ -145,7 +152,7 @@ namespace BD_ITOG
         {
             if (dataGrid.CurrentRow == null)
                 return;
-
+            
             var x = dataGrid.CurrentRow.Index;
             if (dataGrid.Rows[x].Cells[0].Value != null)
             {
@@ -174,10 +181,12 @@ namespace BD_ITOG
         // нужно для создания нового итема, получаю список сток из комбобоксов. В дочерних формах станет понятно
         public List<string> GetValuesFromTextAndComboBox()
         {
+            if (!IsInputDontHaveErrors(TextAndComboBox))
+                return new List<string>();
             // если добавили объект, то у него должен быть максимальный индекс
             var outt = new List<string>();
-            if (dataGrid.Rows[dataGrid.CurrentRow.Index].Cells[0].Value == null || dataGrid.Rows[dataGrid.CurrentRow.Index].Cells[0].Value == null)
-                outt.Add(SQL.maxIndex(commandMaxId).ToString());
+            if (dataGrid.Rows[dataGrid.CurrentRow.Index].Cells[0].Value == null)
+                outt.Add((SQL.maxIndex(commandMaxId)+1).ToString());
             else
                 outt.Add(dataGrid.Rows[dataGrid.CurrentRow.Index].Cells[0].Value.ToString());
             // пробегаемся по массиву "control-ов" и вытаскиваем из них значения
@@ -192,7 +201,7 @@ namespace BD_ITOG
                     n++;
                 }
                 if (item is TextBox tB)
-                    outt.Add(tB.Text);
+                    outt.Add(tB.Text != "" ? tB.Text : "0");
             }
             return outt;
         }

@@ -17,6 +17,9 @@ namespace BD_ITOG
         public int? FkS;
         public string NameS;
         public DateTime? DateS;
+        public bool isGood = true;
+
+        public EAbonement() => isGood = false;
 
         public static HeadDataGrid HeadDataGrid = new HeadDataGrid(
             new List<string> { "id_zap", "fk_libcard", "fk_b", "Книга", "fk_author", "Автор", "fk_v", "Выдал", "Дата выдачи", "fk_s", "Принял", "Дата сдачи" },
@@ -49,15 +52,15 @@ namespace BD_ITOG
                 FkAuthor.ToString(), NameAuthor, FkV.ToString(), NameV, DateV.ToShortDateString(), 
                 FkS != null ? FkS.ToString() : null, 
                 NameS, 
-                DateS != null ? DateS.ToString().Substring(0, 12) : null };
+                DateS != null ? DateS.ToString().Substring(0, 10) : null };
 
         public HeadDataGrid GetHeadDataGrid() => HeadDataGrid; 
 
-        public string GetValueForSql() => $"{FkLk}, {FkBook}, {FkV}, {DateV}, {FkS}, {DateS}"; 
+        public string GetValueForSql() => $"{FkLk}, {FkBook}, {FkV}, '{DateV.ToShortDateString()}', {(FkS != null ? "'" + FkS.ToString() + "'" : "NULL")}, {(DateS != null ? "'" + DateS.ToString().Substring(0, 10) + "'" : "NULL")}";
 
-        public List<string> GetListValForSql() =>
-            new List<string>() { $"{FkLk}", $"{FkBook}", $"{FkV}", $"'{DateV}'", $"'{(FkS != null ? FkS.ToString() : null)}'", 
-                $"'{(DateS != null ? DateS.ToString().Substring(0, 12) : null)}'"};
+        public List<string> GetListValForSql() => new List<string>() { $"{FkLk}", $"{FkBook}", $"{FkV}", $"'{DateV.ToShortDateString()}'", {FkS != null ? "'" + FkS.ToString() + "'" : "NULL"},
+                DateS != null ? "'" + DateS.ToString().Substring(0, 10) + "'" : "NULL"};
         
+        public bool IsGood() => isGood;
     }
 }

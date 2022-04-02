@@ -14,7 +14,9 @@ namespace BD_ITOG
         public int PK;
         public string FIO;
         public DateTime DateBirth;
-        
+        public bool isGood = true;
+
+        public ELibrarian() => isGood = false;
         public ELibrarian(int pK, string fIO, DateTime dateBirth)
         {
             PK = pK;
@@ -33,5 +35,7 @@ namespace BD_ITOG
 
         public List<string> GetListValForSql() =>
             new List<string>() { $"'{FIO}'", $"'{DateBirth.ToShortDateString()}'" };
+
+        public bool IsGood() => isGood;
     }
 }
